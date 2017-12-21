@@ -88,6 +88,8 @@ class DeploymentManagerTest(unittest.TestCase):
         self.test_package_name = "aPakageForTesting-1.0.0"
         self.test_app_name = "anAppForTesting"
 
+        self.mock_application_summary_registar = Mock()
+
     def test_undeploy_errors(self):
         """
         Tests asynchronous error reporting in the undeploy process.
@@ -264,6 +266,7 @@ class DeploymentManagerTest(unittest.TestCase):
         return constructor(
             repository=self.mock_repository,
             package_registrar=self.mock_package_registar,
+            application_summary_registrar = self.mock_application_summary_registar,
             application_registrar=self.mock_application_registar,
             environment=self.mock_environment,
             config=self.mock_config)
@@ -583,12 +586,14 @@ class DeploymentManagerTest(unittest.TestCase):
         repository = Mock()
         package_registrar = Mock()
         application_registrar = Mock()
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -601,12 +606,14 @@ class DeploymentManagerTest(unittest.TestCase):
         package_registrar = Mock()
         package_registrar.list_packages.return_value = expected_packages
         application_registrar = Mock()
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -632,12 +639,14 @@ class DeploymentManagerTest(unittest.TestCase):
 
         package_registrar = Mock()
         application_registrar = Mock()
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -649,12 +658,14 @@ class DeploymentManagerTest(unittest.TestCase):
         package_registrar.get_package_deploy_status.return_value = None
         package_registrar.package_exists.return_value = False
         application_registrar = Mock()
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -672,12 +683,14 @@ class DeploymentManagerTest(unittest.TestCase):
         package_registrar = Mock()
         application_registrar = Mock()
         application_registrar.list_applications_for_package.return_value = expected_applications
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -690,12 +703,14 @@ class DeploymentManagerTest(unittest.TestCase):
         package_registrar = Mock()
         application_registrar = Mock()
         application_registrar.list_applications.return_value = expected_applications
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -712,12 +727,14 @@ class DeploymentManagerTest(unittest.TestCase):
             'package_name': 'package_name',
             'status': ApplicationState.STARTING,
             'information': None}
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -727,6 +744,7 @@ class DeploymentManagerTest(unittest.TestCase):
         repository = Mock()
         package_registrar = Mock()
         application_registrar = Mock()
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
@@ -737,6 +755,7 @@ class DeploymentManagerTest(unittest.TestCase):
         dmgr = DeploymentManagerTester(repository,
                                        package_registrar,
                                        application_registrar,
+                                       application_summary_registrar,
                                        environment,
                                        config)
         dmgr.set_package_progress("name", PackageDeploymentState.DEPLOYING)
@@ -749,11 +768,13 @@ class DeploymentManagerTest(unittest.TestCase):
         package_registrar.get_package_deploy_status.return_value = None
         package_registrar.package_exists.return_value = False
         application_registrar = Mock()
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -774,12 +795,14 @@ class DeploymentManagerTest(unittest.TestCase):
             'package_name': 'package_name',
             'status': ApplicationState.STARTED,
             'information': None}
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
@@ -800,13 +823,37 @@ class DeploymentManagerTest(unittest.TestCase):
             'package_name': 'package_name',
             'status': ApplicationState.NOTCREATED,
             'information': None}
+        application_summary_registrar = Mock()
         environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
         config = {"deployer_thread_limit": 10}
 
         dmgr = DeploymentManager(repository,
                                  package_registrar,
                                  application_registrar,
+                                 application_summary_registrar,
                                  environment,
                                  config)
 
         self.assertRaises(NotFound, dmgr.get_application_detail, 'name')
+
+    def test_get_application_summary(self):
+        repository = Mock()
+        package_registrar = Mock()
+        application_registrar = Mock()
+        application_summary_registrar = Mock()
+        application_summary_registrar.get_summary_data.return_value = {'name':{
+            'aggregate_status': 'COMPLETED_WITH_NO_FAILURES',
+            'component-1': {}
+        }}
+        environment = {"namespace": "some_namespace", 'webhdfs_host': 'webhdfshost', 'webhdfs_port': 'webhdfsport'}
+        config = {"deployer_thread_limit": 10}
+
+        dmgr = DeploymentManager(repository,
+                                 package_registrar,
+                                 application_registrar,
+                                 application_summary_registrar,
+                                 environment,
+                                 config)
+
+        self.assertEqual(dmgr.get_application_summary('name'), {'name':{'aggregate_status': 'COMPLETED_WITH_NO_FAILURES', 'component-1': {}}})
+
