@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - PNDA-2445: Support for Hortonworks HDP
 - PNDA-439: Application create API requires a user to run the application as.
 - PNDA-3345: Provide the app_packages HDFS location (from Pillar) to applications deployed with DM
+- PNDA-2282: Pass more specific reason back in case of bad health for deployment manager - Added exception handling changes.
 
 ### Changed
 - PNDA-3486: Place files in HDFS for components under `/user/deployment-manager/applications/<user>/<application>/<component>` to avoid potential clashes using the existing path of `/user/<application>`.
