@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Changed
 - PNDA-3555: Place files in HDFS for packages and applications under `/pnda/system/deployment-manager/<packages|applications>`.
+- PNDA-3601: disable emailtext in Jenkins file and replace it with notifier stage and job
 
 ### Fixed
 - PNDA-3354: Fix error causing exception to appear in log when trying to deploy packages that do not exist
@@ -15,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - PNDA-439: Application create API requires a user to run the application as.
 - PNDA-3345: Provide the app_packages HDFS location (from Pillar) to applications deployed with DM
 - PNDA-2282: Pass more specific reason back in case of bad health for deployment manager - Added exception handling changes.
+- PNDA-3528: Add default queue placement for oozie jobs.
 
 ### Changed
 - PNDA-3486: Place files in HDFS for components under `/user/deployment-manager/applications/<user>/<application>/<component>` to avoid potential clashes using the existing path of `/user/<application>`.
